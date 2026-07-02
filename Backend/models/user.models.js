@@ -1,21 +1,26 @@
 import mongoose from "mongoose";
 const userSchema = new mongoose.Schema(
   {
-    firstname: {
+    firstName: {
       type: String,
       required: true,
+      lowercase:true,
+      trim:true, 
+      index:true
     },
-    secondname: {
-      type: String,
+    secondName: {
+      type: String, 
     },
     email: {
       type: String,
       unique: true,
       required: true,
+      lowercase:true,
+      trim:true, 
     },
     password: {
       type: String,
-      required: true,
+      required: [true,"password is required"],
       maxlength: [16, "password should not be greater then 16 characters"],
       minlength: [4, "password should not be greater then 16 characters"],
     },
@@ -23,7 +28,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    healthcertificate: {
+    healthCertificate: {
       type: Image,
       required: true,
     },
@@ -47,7 +52,10 @@ const userSchema = new mongoose.Schema(
         type:mongoose.Schema.Types.ObjectId,
         ref:"Vehicle",
         required:true
-    }
+    },
+    refreshToken:{
+      type:String
+    },
   },
   { timestamps: true },
 );
